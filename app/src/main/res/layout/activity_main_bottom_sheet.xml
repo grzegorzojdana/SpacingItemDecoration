@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.grzegorzojdana.spacingitemdecorationapp.action.main.MainActivity">
+
+    <fragment
+        android:id="@+id/fragment_list_preview"
+        android:name="com.grzegorzojdana.spacingitemdecorationapp.action.listpreview.ListPreviewFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_marginBottom="@dimen/list_control_bottom_sheet_height"/>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/md_white"
+        app:layout_behavior="@string/bottom_sheet_behavior"
+        app:behavior_peekHeight="@dimen/list_control_bottom_sheet_height"
+        app:behavior_hideable="false">
+
+        <LinearLayout
+            android:id="@+id/group_configs"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <fragment
+                android:id="@+id/fragment_list_config"
+                android:name="com.grzegorzojdana.spacingitemdecorationapp.action.listcontrol.ListControlFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/main_label_spacing_configuration"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:layout_marginTop="16dp"
+                android:paddingStart="16dp"
+                android:paddingLeft="16dp"
+                android:paddingEnd="16dp"
+                android:paddingRight="16dp"/>
+
+            <fragment
+                android:id="@+id/fragment_spacing_config"
+                android:name="com.grzegorzojdana.spacingitemdecorationapp.action.spacingconfig.SpacingConfigFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

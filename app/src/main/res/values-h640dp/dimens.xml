@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="list_control_bottom_sheet_height">320dp</dimen>
+
+</resources>

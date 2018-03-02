@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/labelEdges"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/spacing_config_label_edges"
+        app:layout_constraintEnd_toEndOf="@+id/pickerEdgeTop"
+        app:layout_constraintStart_toStartOf="@+id/pickerEdgeTop"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <NumberPicker
+        android:id="@+id/pickerEdgeLeft"
+        android:layout_width="@dimen/spacing_config_picker_width"
+        android:layout_height="@dimen/spacing_config_picker_height"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pickerEdgeBottom"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/pickerEdgeTop" />
+
+    <NumberPicker
+        android:id="@+id/pickerEdgeTop"
+        android:layout_width="@dimen/spacing_config_picker_width"
+        android:layout_height="@dimen/spacing_config_picker_height"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@+id/pickerEdgeLeft"
+        app:layout_constraintTop_toBottomOf="@+id/labelEdges" />
+
+    <NumberPicker
+        android:id="@+id/pickerEdgeRight"
+        android:layout_width="@dimen/spacing_config_picker_width"
+        android:layout_height="@dimen/spacing_config_picker_height"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pickerEdgeLeft"
+        app:layout_constraintStart_toEndOf="@+id/pickerEdgeTop"
+        app:layout_constraintTop_toTopOf="@+id/pickerEdgeLeft" />
+
+    <NumberPicker
+        android:id="@+id/pickerEdgeBottom"
+        android:layout_width="@dimen/spacing_config_picker_width"
+        android:layout_height="@dimen/spacing_config_picker_height"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/pickerEdgeTop"
+        app:layout_constraintStart_toStartOf="@+id/pickerEdgeTop"
+        app:layout_constraintTop_toBottomOf="@+id/pickerEdgeTop" />
+
+
+    <TextView
+        android:id="@+id/labelItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/spacing_config_label_item"
+        app:layout_constraintBottom_toTopOf="@+id/pickerItemTop"
+        app:layout_constraintEnd_toEndOf="@+id/pickerItemTop"
+        app:layout_constraintStart_toStartOf="@+id/pickerItemTop" />
+
+    <NumberPicker
+        android:id="@+id/pickerItemLeft"
+        android:layout_width="@dimen/spacing_config_picker_width"
+        android:layout_height="@dimen/spacing_config_picker_height"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pickerItemBottom"
+        app:layout_constraintStart_toEndOf="@+id/pickerEdgeRight"
+        app:layout_constraintTop_toTopOf="@+id/pickerItemTop" />
+
+    <NumberPicker
+        android:id="@+id/pickerItemTop"
+        android:layout_width="@dimen/spacing_config_picker_width"
+        android:layout_height="@dimen/spacing_config_picker_height"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintStart_toEndOf="@+id/pickerItemLeft"
+        app:layout_constraintTop_toTopOf="@+id/pickerEdgeTop" />
+
+    <NumberPicker
+        android:id="@+id/pickerItemRight"
+        android:layout_width="@dimen/spacing_config_picker_width"
+        android:layout_height="@dimen/spacing_config_picker_height"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pickerItemLeft"
+        app:layout_constraintStart_toEndOf="@+id/pickerItemTop"
+        app:layout_constraintTop_toTopOf="@+id/pickerItemLeft" />
+
+    <NumberPicker
+        android:id="@+id/pickerItemBottom"
+        android:layout_width="@dimen/spacing_config_picker_width"
+        android:layout_height="@dimen/spacing_config_picker_height"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/pickerItemTop"
+        app:layout_constraintStart_toStartOf="@+id/pickerItemTop"
+        app:layout_constraintTop_toBottomOf="@+id/pickerItemTop" />
+
+
+    <NumberPicker
+        android:id="@+id/pickerHorizontal"
+        android:layout_width="@dimen/spacing_config_picker_width"
+        android:layout_height="@dimen/spacing_config_picker_height"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        app:layout_constraintStart_toEndOf="@+id/pickerItemRight"
+        app:layout_constraintTop_toTopOf="@+id/pickerItemTop" />
+
+    <TextView
+        android:id="@+id/labelHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/spacing_config_label_horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/pickerHorizontal"
+        app:layout_constraintEnd_toEndOf="@+id/pickerHorizontal"
+        app:layout_constraintStart_toStartOf="@+id/pickerHorizontal" />
+
+    <NumberPicker
+        android:id="@+id/pickerVertical"
+        android:layout_width="@dimen/spacing_config_picker_width"
+        android:layout_height="@dimen/spacing_config_picker_height"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pickerHorizontal"
+        app:layout_constraintStart_toEndOf="@+id/pickerHorizontal"
+        app:layout_constraintTop_toTopOf="@+id/pickerHorizontal" />
+
+    <TextView
+        android:id="@+id/labelVertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/spacing_config_label_vertical"
+        app:layout_constraintBottom_toTopOf="@+id/pickerVertical"
+        app:layout_constraintEnd_toEndOf="@+id/pickerVertical"
+        app:layout_constraintStart_toStartOf="@+id/pickerVertical" />
+
+
+    <Button
+        android:id="@+id/btnSetZero"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/spacing_config_btn_set_zero"
+        app:layout_constraintBottom_toTopOf="@+id/btnSetDefault"
+        app:layout_constraintEnd_toEndOf="@+id/pickerVertical"
+        app:layout_constraintStart_toStartOf="@+id/pickerHorizontal" />
+
+    <Button
+        android:id="@+id/btnSetDefault"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/spacing_config_btn_set_default"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btnSetZero"
+        app:layout_constraintStart_toStartOf="@+id/btnSetZero" />
+
+</android.support.constraint.ConstraintLayout>

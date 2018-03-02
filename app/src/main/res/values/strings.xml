@@ -1,0 +1,39 @@
+<resources>
+
+    <string name="app_name">SpacingItemDecoration</string>
+
+    <string name="list_control_label_layout">Layout manager</string>
+    <string name="list_control_label_horizontal">Horizontal</string>
+    <string name="list_control_label_vertical">Vertical</string>
+    <string name="list_control_label_reversed">Reversed</string>
+    <string name="list_control_label_item_count">Item count</string>
+    <string name="list_control_label_span">Span count</string>
+    <string name="list_control_label_allow_item_span">Allow items spanning</string>
+    <string name="list_control_label_enable_spacing_drawing">Draw spacing</string>
+
+    <string name="layout_manager_type_linear">Linear</string>
+    <string name="layout_manager_type_grid">Grid</string>
+    <string name="layout_manager_type_grid_with_spans">Grid + spans</string>
+    <string name="layout_manager_type_staggeredgrid">Staggered Grid</string>
+
+    <string name="main_label_spacing_configuration">Spacing configuration</string>
+    <string name="main_menu_show_list_control">Show configuration</string>
+
+    <string name="spacing_config_picker_formatter_dp">%d dp</string>
+    <string name="spacing_config_label_edges">Edges</string>
+    <string name="spacing_config_label_item">Item</string>
+    <string name="spacing_config_label_between_items">Between items</string>
+    <string name="spacing_config_label_horizontal">Horizontal</string>
+    <string name="spacing_config_label_vertical">Vertical</string>
+    <string name="spacing_config_label_left">Left</string>
+    <string name="spacing_config_label_top">Top</string>
+    <string name="spacing_config_label_right">Right</string>
+    <string name="spacing_config_label_bottom">Bottom</string>
+    <string name="spacing_config_btn_reset">Reset spacing</string>
+    <string name="spacing_config_btn_set_zero">No spacing</string>
+    <string name="spacing_config_btn_set_default">Default</string>
+
+    <string name="preview_message_item_offsets">Item offsets: %s</string>
+
+
+</resources>

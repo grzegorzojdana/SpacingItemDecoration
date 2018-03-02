@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <Spinner
+        android:id="@+id/spinnerLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/radioGroupOrientation"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Switch
+        android:id="@+id/switchReversed"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/list_control_label_reversed"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/spinnerLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerLayout" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupOrientation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toEndOf="@+id/spinnerLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/spinnerLayout">
+
+        <RadioButton
+            android:id="@+id/radioHorizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/list_control_label_horizontal" />
+
+        <RadioButton
+            android:id="@+id/radioVertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/list_control_label_vertical" />
+
+    </RadioGroup>
+
+    <!-- Item count -->
+
+    <SeekBar
+        android:id="@+id/seekBarItemCount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:max="250"
+        android:progress="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/labelItemCountValue"
+        app:layout_constraintTop_toBottomOf="@+id/labelItemCount" />
+
+    <TextView
+        android:id="@+id/labelItemCount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/list_control_label_item_count"
+        app:layout_constraintEnd_toEndOf="@+id/seekBarItemCount"
+        app:layout_constraintStart_toStartOf="@+id/seekBarItemCount"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroupOrientation" />
+
+    <TextView
+        android:id="@+id/labelItemCountValue"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/seekBarItemCount"
+        app:layout_constraintTop_toTopOf="@+id/seekBarItemCount"
+        app:layout_constraintBottom_toBottomOf="@+id/seekBarItemCount"
+        tools:text="100" />
+
+    <!-- Span -->
+
+    <SeekBar
+        android:id="@+id/seekBarSpan"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:max="11"
+        android:progress="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/labelSpanValue"
+        app:layout_constraintTop_toBottomOf="@+id/labelSpan" />
+
+    <TextView
+        android:id="@+id/labelSpan"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/list_control_label_span"
+        app:layout_constraintEnd_toEndOf="@+id/seekBarSpan"
+        app:layout_constraintStart_toStartOf="@+id/seekBarSpan"
+        app:layout_constraintTop_toBottomOf="@+id/seekBarItemCount"/>
+
+    <TextView
+        android:id="@+id/labelSpanValue"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/seekBarSpan"
+        app:layout_constraintTop_toTopOf="@+id/seekBarSpan"
+        app:layout_constraintBottom_toBottomOf="@+id/seekBarSpan"
+        tools:text="10" />
+
+    <CheckBox
+        android:id="@+id/cbAllowItemSpan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/list_control_label_allow_item_span"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/seekBarSpan" />
+
+    <CheckBox
+        android:id="@+id/cbDrawSpacing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/list_control_label_enable_spacing_drawing"
+        app:layout_constraintTop_toTopOf="@+id/cbAllowItemSpan"
+        app:layout_constraintStart_toEndOf="@+id/cbAllowItemSpan"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"/>
+
+</android.support.constraint.ConstraintLayout>

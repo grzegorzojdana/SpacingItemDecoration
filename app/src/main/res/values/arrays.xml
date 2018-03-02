@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- keep this values in the same order as constants in ListLayoutConfig -->
+    <string-array name="layout_manager_types">
+        <item>@string/layout_manager_type_linear</item>
+        <item>@string/layout_manager_type_grid</item>
+        <item>@string/layout_manager_type_staggeredgrid</item>
+    </string-array>
+
+</resources>

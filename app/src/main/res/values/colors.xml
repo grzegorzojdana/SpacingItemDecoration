@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- amber + blue -->
+    <!--<color name="primaryColor">#ffab00</color>-->
+    <!--<color name="primaryLightColor">#ffdd4b</color>-->
+    <!--<color name="primaryDarkColor">#c67c00</color>-->
+    <!--<color name="secondaryColor">#3d5afe</color>-->
+    <!--<color name="secondaryLightColor">#8187ff</color>-->
+    <!--<color name="secondaryDarkColor">#0031ca</color>-->
+    <!--<color name="primaryTextColor">#000000</color>-->
+    <!--<color name="secondaryTextColor">#ffffff</color>-->
+
+    <!-- teal + deep orange -->
+    <color name="primaryColor">#009688</color>
+    <color name="primaryLightColor">#52c7b8</color>
+    <color name="primaryDarkColor">#00675b</color>
+    <color name="secondaryColor">#ff6e40</color>
+    <color name="secondaryLightColor">#ffa06d</color>
+    <color name="secondaryDarkColor">#c53d13</color>
+    <color name="primaryTextColor">#000000</color>
+    <color name="secondaryTextColor">#000000</color>
+
+    <color name="preview_list_item_background">@color/md_indigo_400</color>
+
+</resources>
