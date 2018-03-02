@@ -4,9 +4,7 @@
 
 ItemDecoration for RecyclerView that allows you to set spacing between and around list items in flexible way.
 
-<img src="https://raw.githubusercontent.com/grzegorzojdana/spacingitemdecoration/master/art/staggered.png" width="320">
-
-![sample](https://raw.githubusercontent.com/grzegorzojdana/spacingitemdecoration/master/art/sample.gif "Sample")
+<img src="https://raw.githubusercontent.com/grzegorzojdana/spacingitemdecoration/master/art/staggered.png" height=500> <img src="https://raw.githubusercontent.com/grzegorzojdana/spacingitemdecoration/master/art/sample.gif" height=500>
 
 ## How to install
 
@@ -44,8 +42,7 @@ There are several spacing modifiers:
 * `item` rectangle defines inset for each item (similar to item padding).
 * `edges` rectangle means offsets from the parent (RecyclerView) edges (similar to RecyclerView padding).
 
-<img src="https://raw.githubusercontent.com/grzegorzojdana/spacingitemdecoration/master/art/grid.png" width=320>
-<img src="https://raw.githubusercontent.com/grzegorzojdana/spacingitemdecoration/master/art/grid-draw-with-legend.png" width=320>  
+<img src="https://raw.githubusercontent.com/grzegorzojdana/spacingitemdecoration/master/art/grid.png" height=500> <img src="https://raw.githubusercontent.com/grzegorzojdana/spacingitemdecoration/master/art/grid-draw-with-legend.png" height=500>  
 
 This library doesn't modify padding of any view, but calculates item offsets basing on given parameters.   
 
