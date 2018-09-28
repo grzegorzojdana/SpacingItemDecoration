@@ -1,7 +1,7 @@
 package com.grzegorzojdana.spacingitemdecorationapp.action.listpreview
 
 import android.graphics.Point
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,9 +21,9 @@ class ListPreviewItemAdapter(
 
     var itemClickListener: ListItemClickListener? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater
-                .from(parent?.context)
+                .from(parent.context)
                 .inflate(R.layout.layout_preview_list_item, parent, false)
 
         val viewHolder = ViewHolder(itemView)

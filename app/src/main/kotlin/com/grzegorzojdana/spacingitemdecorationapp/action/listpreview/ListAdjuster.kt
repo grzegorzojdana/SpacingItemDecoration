@@ -1,10 +1,10 @@
 package com.grzegorzojdana.spacingitemdecorationapp.action.listpreview
 
 import android.content.Context
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.grzegorzojdana.spacingitemdecorationapp.model.ListLayoutConfig
 
 /**

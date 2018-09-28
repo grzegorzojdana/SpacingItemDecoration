@@ -1,11 +1,11 @@
 package com.grzegorzojdana.spacingitemdecorationapp.action.listpreview
 
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProviders
 import android.graphics.Rect
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,9 +29,8 @@ class ListPreviewFragment: Fragment() {
     private lateinit var itemSizeProvider: LayoutManagerDependentItemSizeProvider
     private val itemViewAdjuster = ListConfigItemViewAdjuster()
 
-
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_list_preview, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_list_preview, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -79,7 +78,7 @@ class ListPreviewFragment: Fragment() {
         list.layoutManager = LinearLayoutManager(list.context)
         list.addItemDecoration(spacingItemDecoration)
 
-        itemSizeProvider = LayoutManagerDependentItemSizeProvider(list.layoutManager)
+        itemSizeProvider = LayoutManagerDependentItemSizeProvider(list.layoutManager!!)
         adapter.itemSizeProvider = itemSizeProvider
         adapter.itemViewAdjuster = itemViewAdjuster
     }
@@ -89,7 +88,7 @@ class ListPreviewFragment: Fragment() {
 
         viewModel.listAdjuster.adjustListToConfig(list, it)
 
-        itemSizeProvider.layoutManager = list.layoutManager
+        itemSizeProvider.layoutManager = list.layoutManager!!
         itemViewAdjuster.listLayoutConfig = it
 
         // need to refresh item views sizing, which is done in onBindViewHolder()

@@ -1,6 +1,6 @@
 package com.grzegorzojdana.spacingitemdecorationapp.action.listpreview
 
-import android.support.v7.widget.GridLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import java.util.*
 
 /**

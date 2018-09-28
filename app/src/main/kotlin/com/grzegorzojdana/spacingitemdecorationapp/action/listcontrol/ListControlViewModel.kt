@@ -1,7 +1,7 @@
 package com.grzegorzojdana.spacingitemdecorationapp.action.listcontrol
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.grzegorzojdana.spacingitemdecorationapp.model.DecorationConfig
 import com.grzegorzojdana.spacingitemdecorationapp.model.ListDataRepository
 import com.grzegorzojdana.spacingitemdecorationapp.model.ListLayoutConfig

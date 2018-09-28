@@ -1,6 +1,6 @@
 package com.grzegorzojdana.spacingitemdecorationapp.model
 
-import android.support.v7.widget.OrientationHelper
+import androidx.recyclerview.widget.OrientationHelper
 
 /**
  * Immutable model of RecyclerView LayoutManager configuration.
