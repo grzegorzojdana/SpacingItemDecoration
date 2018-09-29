@@ -13,7 +13,6 @@ import android.widget.Toast
 import com.grzegorzojdana.spacingitemdecoration.Spacing
 import com.grzegorzojdana.spacingitemdecoration.SpacingItemDecoration
 import com.grzegorzojdana.spacingitemdecorationapp.R
-import com.grzegorzojdana.spacingitemdecorationapp.R.id.list
 import com.grzegorzojdana.spacingitemdecorationapp.model.ListLayoutConfig
 import com.grzegorzojdana.spacingitemdecorationapp.util.NullIgnoreObserver
 import kotlinx.android.synthetic.main.fragment_list_preview.*
@@ -29,7 +28,10 @@ class ListPreviewFragment: Fragment() {
     private lateinit var itemSizeProvider: LayoutManagerDependentItemSizeProvider
     private val itemViewAdjuster = ListConfigItemViewAdjuster()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_list_preview, container, false)
     }
 
@@ -64,8 +66,8 @@ class ListPreviewFragment: Fragment() {
     }
 
     private fun setupList() {
-        adapter.itemClickListener = {
-            val itemView = it.itemView
+        adapter.itemClickListener = { vh ->
+            val itemView = vh.itemView
             list?.layoutManager?.getDecorationRect(itemView)?.let {
                 val msg = getString(R.string.preview_message_item_offsets, it.toString())
                 Toast.makeText(itemView.context, msg, Toast.LENGTH_SHORT).show()
@@ -73,12 +75,13 @@ class ListPreviewFragment: Fragment() {
         }
         adapter.setHasStableIds(true)
 
+        val layoutManager = LinearLayoutManager(list.context)
         list.setHasFixedSize(true)
         list.adapter = this.adapter
-        list.layoutManager = LinearLayoutManager(list.context)
+        list.layoutManager = layoutManager
         list.addItemDecoration(spacingItemDecoration)
 
-        itemSizeProvider = LayoutManagerDependentItemSizeProvider(list.layoutManager!!)
+        itemSizeProvider = LayoutManagerDependentItemSizeProvider(layoutManager)
         adapter.itemSizeProvider = itemSizeProvider
         adapter.itemViewAdjuster = itemViewAdjuster
     }

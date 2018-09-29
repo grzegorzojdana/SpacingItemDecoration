@@ -4,8 +4,9 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
-import androidx.appcompat.widget.*
 import android.view.View
+import androidx.recyclerview.widget.*
+import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 
 /**
  * [ItemDecoration] implementation that adds specified spacing to [RecyclerView]s items elements.
@@ -17,7 +18,7 @@ class SpacingItemDecoration(
          * Desired offsets of RecyclerView items. See [Spacing].
          */
         spacing: Spacing
-): androidx.recyclerview.widget.RecyclerView.ItemDecoration() {
+): ItemDecoration() {
 
     var itemOffsetsCalculator = ItemOffsetsCalculator(spacing)
     var itemOffsetsRequestBuilder = ItemOffsetsRequestBuilder()
@@ -68,8 +69,8 @@ class SpacingItemDecoration(
 
     override fun getItemOffsets(outRect: Rect,
                                 view: View,
-                                parent: androidx.recyclerview.widget.RecyclerView,
-                                state: androidx.recyclerview.widget.RecyclerView.State) {
+                                parent: RecyclerView,
+                                state: RecyclerView.State) {
         if (parent.getChildAdapterPosition(view) < 0) {
             outRect.setEmpty()
             return
@@ -81,8 +82,8 @@ class SpacingItemDecoration(
     }
 
     private fun determineItemOffsetsParams(view: View,
-                                           parent: androidx.recyclerview.widget.RecyclerView,
-                                           state: androidx.recyclerview.widget.RecyclerView.State,
+                                           parent: RecyclerView,
+                                           state: RecyclerView.State,
                                            itemOffsetsParams: ItemOffsetsRequestBuilder.ItemOffsetsParams) {
         val layoutManager = parent.layoutManager
         val itemPosition = parent.getChildAdapterPosition(view)
@@ -90,9 +91,9 @@ class SpacingItemDecoration(
 
         when (layoutManager) {
             null -> throw IllegalArgumentException("RecyclerView without layout manager")
-            is androidx.recyclerview.widget.GridLayoutManager -> {
+            is GridLayoutManager -> {
                 val spanSizeLookup = layoutManager.spanSizeLookup
-                val layoutParams = view.layoutParams as androidx.recyclerview.widget.GridLayoutManager.LayoutParams
+                val layoutParams = view.layoutParams as GridLayoutManager.LayoutParams
                 val clampedSpanCount = Math.max(layoutManager.spanCount, 1)
                 val determinedGroupCount = getGridGroupCount(itemCount, layoutManager)
 
@@ -102,12 +103,12 @@ class SpacingItemDecoration(
                     spanSize         = layoutParams.spanSize
                     spanCount        = clampedSpanCount
                     groupCount       = determinedGroupCount
-                    isLayoutVertical = (layoutManager.orientation == androidx.recyclerview.widget.OrientationHelper.VERTICAL)
+                    isLayoutVertical = (layoutManager.orientation == OrientationHelper.VERTICAL)
                     isLayoutReverse  = layoutManager.reverseLayout
                 }
             }
-            is androidx.recyclerview.widget.StaggeredGridLayoutManager -> {
-                val itemLayoutParams = view.layoutParams as androidx.recyclerview.widget.StaggeredGridLayoutManager.LayoutParams
+            is StaggeredGridLayoutManager -> {
+                val itemLayoutParams = view.layoutParams as StaggeredGridLayoutManager.LayoutParams
 
                 // could write some logic to determine and cache group index for each item
                 // could access to Span object in item layout params through reflection
@@ -118,26 +119,27 @@ class SpacingItemDecoration(
                     spanSize         = if (itemLayoutParams.isFullSpan) layoutManager.spanCount else 1
                     spanCount        = layoutManager.spanCount
                     groupCount       = 1
-                    isLayoutVertical = (layoutManager.orientation == androidx.recyclerview.widget.OrientationHelper.VERTICAL)
+                    isLayoutVertical = (layoutManager.orientation == OrientationHelper.VERTICAL)
                     isLayoutReverse  = layoutManager.reverseLayout
                 }
             }
-            is androidx.recyclerview.widget.LinearLayoutManager -> {
+            is LinearLayoutManager -> {
                 itemOffsetsParams.apply {
                     spanIndex        = 0
                     groupIndex       = itemPosition
                     spanSize         = 1
                     spanCount        = 1
                     groupCount       = itemCount
-                    isLayoutVertical = (layoutManager.orientation == androidx.recyclerview.widget.OrientationHelper.VERTICAL)
+                    isLayoutVertical = (layoutManager.orientation == OrientationHelper.VERTICAL)
                     isLayoutReverse  = layoutManager.reverseLayout
                 }
             }
-            else -> throw IllegalArgumentException("Unsupported layout manager: ${layoutManager::class.java.simpleName}")
+            else -> throw IllegalArgumentException(
+                    "Unsupported layout manager: ${layoutManager::class.java.simpleName}")
         }
     }
 
-    override fun onDraw(canvas: Canvas, parent: androidx.recyclerview.widget.RecyclerView, state: androidx.recyclerview.widget.RecyclerView.State) {
+    override fun onDraw(canvas: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         if (!isSpacingDrawingEnabled) return
 
         val itemsCount = parent.childCount
@@ -191,7 +193,8 @@ class SpacingItemDecoration(
                 drawingRect.set(
                         0,
                         0,
-                        Math.min(extremeItems[0].left - spacing.item.left, spacing.edges.left),
+                        Math.min(extremeItems[0].left - spacing.item.left,
+                                 spacing.edges.left),
                         visibleRect.bottom)
                 drawRect(canvas)
             }
@@ -203,7 +206,8 @@ class SpacingItemDecoration(
                         0,
                         0,
                         visibleRect.right,
-                        Math.min(extremeItems[1].top - spacing.item.top, spacing.edges.top))
+                        Math.min(extremeItems[1].top - spacing.item.top,
+                                 spacing.edges.top))
                 drawRect(canvas)
             }
 
@@ -211,7 +215,8 @@ class SpacingItemDecoration(
             itemOffsetsRequestBuilder.fillItemOffsetsRequest(itemOffsetsParams, offsetsRequest)
             if (offsetsRequest.lastCol == offsetsRequest.cols - 1) {
                 drawingRect.set(
-                        Math.max(extremeItems[2].right + spacing.item.right, visibleRect.right - spacing.edges.right),
+                        Math.max(extremeItems[2].right + spacing.item.right,
+                                 visibleRect.right - spacing.edges.right),
                         0,
                         visibleRect.right,
                         visibleRect.bottom)
@@ -223,7 +228,8 @@ class SpacingItemDecoration(
             if (offsetsRequest.lastRow == offsetsRequest.rows - 1) {
                 drawingRect.set(
                         0,
-                        Math.max(extremeItems[3].bottom + spacing.item.bottom, visibleRect.bottom - spacing.edges.bottom),
+                        Math.max(extremeItems[3].bottom + spacing.item.bottom,
+                                 visibleRect.bottom - spacing.edges.bottom),
                         visibleRect.right,
                         visibleRect.bottom)
                 drawRect(canvas)
@@ -247,7 +253,7 @@ class SpacingItemDecoration(
         cachedGroupCount = -1
     }
 
-    private fun getGridGroupCount(itemCount: Int, layoutManager: androidx.recyclerview.widget.GridLayoutManager): Int {
+    private fun getGridGroupCount(itemCount: Int, layoutManager: GridLayoutManager): Int {
         if (isGroupCountCacheEnabled && cachedGroupCount > 0)
             return cachedGroupCount
 
@@ -255,7 +261,7 @@ class SpacingItemDecoration(
         val clampedSpanCount = Math.max(layoutManager.spanCount, 1)
 
         val groupCount: Int = when {
-            hintSpanSizeAlwaysOne || spanSizeLookup is androidx.recyclerview.widget.GridLayoutManager.DefaultSpanSizeLookup -> {
+            hintSpanSizeAlwaysOne || spanSizeLookup is GridLayoutManager.DefaultSpanSizeLookup -> {
                 Math.ceil(itemCount / clampedSpanCount.toDouble()).toInt()
             }
             else -> {
@@ -272,10 +278,10 @@ class SpacingItemDecoration(
 
 
     data class DrawingConfig(
-            var edgeColor: Int = Color.parseColor("#F44336"), // Red 500
-            var itemColor: Int = Color.parseColor("#FFEB3B"), // Yellow 500
+            var edgeColor: Int       = Color.parseColor("#F44336"), // Red 500
+            var itemColor: Int       = Color.parseColor("#FFEB3B"), // Yellow 500
             var horizontalColor: Int = Color.parseColor("#00BCD4"), // Cyan 500
-            var verticalColor: Int = Color.parseColor("#76FF03") // Light Green A400
+            var verticalColor: Int   = Color.parseColor("#76FF03") // Light Green A400
     )
 
 
@@ -304,7 +310,7 @@ class SpacingItemDecoration(
  * Find most left, top, right and bottom children and return array with 4 items.
  * If list doesn't have children, empty array is returned.
  */
-private fun androidx.recyclerview.widget.RecyclerView.getExtremeChildren(): Array<View> {
+private fun RecyclerView.getExtremeChildren(): Array<View> {
     if (childCount == 0) return emptyArray()
 
     val firstChild = getChildAt(0)
@@ -312,9 +318,9 @@ private fun androidx.recyclerview.widget.RecyclerView.getExtremeChildren(): Arra
 
     for (i in 1 until childCount) {
         val child = getChildAt(i)
-        if (child.left < extremeChildren[0].left) extremeChildren[0] = child
-        if (child.top < extremeChildren[1].top) extremeChildren[1] = child
-        if (child.right > extremeChildren[2].right) extremeChildren[2] = child
+        if (child.left   < extremeChildren[0].left)   extremeChildren[0] = child
+        if (child.top    < extremeChildren[1].top)    extremeChildren[1] = child
+        if (child.right  > extremeChildren[2].right)  extremeChildren[2] = child
         if (child.bottom > extremeChildren[3].bottom) extremeChildren[3] = child
     }
 

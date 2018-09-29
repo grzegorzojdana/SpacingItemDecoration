@@ -40,24 +40,23 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$globalKotlinVersion"
-    implementation 'androidx.appcompat:appcompat:1.0.0'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$globalKotlinVersion"
+    implementation "androidx.appcompat:appcompat:$globalExtensionLibraryVersion"
+    implementation "androidx.recyclerview:recyclerview:$globalExtensionLibraryVersion"
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
     implementation project(':spacingitemdecorationlib')
 
     // ViewModel and LiveData
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
-//    annotationProcessor "android.arch.lifecycle:compiler:1.0.0"
-    implementation 'androidx.lifecycle:lifecycle-common-java8:2.0.0'
+    implementation "androidx.lifecycle:lifecycle-extensions:$globalLifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$globalLifecycleVersion"
 
     testImplementation 'junit:junit:4.12'
     testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$globalKotlinVersion"
     testImplementation "org.robolectric:robolectric:$globalRobolectricVersion"
-    testImplementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
-    testImplementation 'androidx.lifecycle:lifecycle-common-java8:2.0.0'
+    testImplementation "androidx.lifecycle:lifecycle-extensions:$globalLifecycleVersion"
+    testImplementation "androidx.lifecycle:lifecycle-common-java8:$globalLifecycleVersion"
 
-    androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
+    androidTestImplementation "androidx.test:runner:$globalTestRunnerVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$globalEspressoVersion"
 }

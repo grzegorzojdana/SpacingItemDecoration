@@ -2,6 +2,7 @@ package com.grzegorzojdana.spacingitemdecorationapp.action.spacingconfig
 
 import android.graphics.Rect
 import com.grzegorzojdana.spacingitemdecoration.Spacing
+import com.grzegorzojdana.spacingitemdecorationapp.model.DecorationConfig
 import com.grzegorzojdana.spacingitemdecorationapp.model.ListDataProvider
 import com.grzegorzojdana.spacingitemdecorationapp.model.ListDataRepository
 import com.grzegorzojdana.spacingitemdecorationapp.model.ListLayoutConfig
@@ -22,6 +23,7 @@ class SpacingConfigViewModelTest {
                 edges = Rect(0, 6, 0, 12))
         val defaultConfigProvider = object : ListDataProvider {
             override val listLayoutConfig: ListLayoutConfig get() = ListLayoutConfig()
+            override val decorationConfig: DecorationConfig get() = DecorationConfig()
             override val spacing: Spacing get() = defaultSpacing.copy()
             override val itemCount: Int = 8
         }

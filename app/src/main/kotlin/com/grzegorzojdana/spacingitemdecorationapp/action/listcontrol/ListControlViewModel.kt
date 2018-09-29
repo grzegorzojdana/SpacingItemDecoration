@@ -13,8 +13,12 @@ class ListControlViewModel: ViewModel() {
 
     private val listDataRepository = ListDataRepository
 
-    val listLayoutConfig: MutableLiveData<ListLayoutConfig> get() = listDataRepository.listLayoutConfig
-    val decorationConfig: MutableLiveData<DecorationConfig> get() = listDataRepository.decorationConfig
+    val listLayoutConfig: MutableLiveData<ListLayoutConfig>
+        get() = listDataRepository.listLayoutConfig
+
+    val decorationConfig: MutableLiveData<DecorationConfig>
+        get() = listDataRepository.decorationConfig
+
     val itemCount: MutableLiveData<Int> get() = listDataRepository.itemCount
 
     fun allowItemsSpanning(layoutType: Int): Boolean = when(layoutType) {

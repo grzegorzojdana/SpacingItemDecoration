@@ -23,7 +23,10 @@ class SpacingConfigFragment: Fragment(), NumberPicker.OnValueChangeListener {
 
     private lateinit var viewModel: SpacingConfigViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_spacing_config, container, false)
     }
 
@@ -100,7 +103,7 @@ class SpacingConfigFragment: Fragment(), NumberPicker.OnValueChangeListener {
 
     private val SpacingPickerLabelFormatter = NumberPicker.Formatter { value ->
         val valueAsDp = (value * SPACING_PICKER_STEP).toInt()
-        resources?.getString(R.string.spacing_config_picker_formatter_dp, valueAsDp)
+        getString(R.string.spacing_config_picker_formatter_dp, valueAsDp)
     }
 
 }

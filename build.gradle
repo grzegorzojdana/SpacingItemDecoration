@@ -4,13 +4,15 @@
 
 buildscript {
     ext {
-        globalExtensionLibraryVersion = '1.0.0'
         globalMinSdkVersion      = 14
         globalTargetSdkVersion   = 28
         globalCompileSdkVersion  = 28
         globalKotlinVersion      = '1.2.71'
-        globalRobolectricVersion = '3.6.1'
-        globalLifecycleVersion   = '1.1.0'
+        globalExtensionLibraryVersion = '1.0.0'
+        globalRobolectricVersion = '4.0-alpha-4-SNAPSHOT' // using snapshot version until 4.0 will came up to support android api 28
+        globalLifecycleVersion   = '2.0.0'
+        globalTestRunnerVersion  = '1.1.0-alpha4'
+        globalEspressoVersion    = '3.1.0-alpha4'
     }
 
     repositories {
@@ -30,6 +32,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots" } // robolectric snapshot
     }
 }
 

@@ -22,7 +22,10 @@ class ListControlFragment: Fragment() {
 
     private lateinit var viewModel: ListControlViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_list_control, container, false)
     }
 
@@ -63,20 +66,22 @@ class ListControlFragment: Fragment() {
             viewModel.updateListLayoutConfig { it.copy(reversed = isChecked) }
         }
 
-        seekBarItemCount.setOnSeekBarChangeListener(SeekBarProgressChangedListener({ _, progress, fromUser ->
+        seekBarItemCount.setOnSeekBarChangeListener(SeekBarProgressChangedListener {
+            _, progress, fromUser ->
             if (fromUser) {
                 viewModel.itemCount.value = progress
             }
             labelItemCountValue.text = progress.toString()
-        }))
+        })
 
-        seekBarSpan.setOnSeekBarChangeListener(SeekBarProgressChangedListener({ _, progress, fromUser ->
+        seekBarSpan.setOnSeekBarChangeListener(SeekBarProgressChangedListener {
+            _, progress, fromUser ->
             val newSpan = progress + 1
             if (fromUser) {
                 viewModel.updateListLayoutConfig { it.copy(spanCount = newSpan) }
             }
             labelSpanValue.text = newSpan.toString()
-        }))
+        })
 
         cbAllowItemSpan.setOnCheckedChangeListener { _, isChecked ->
             viewModel.updateListLayoutConfig { it.copy(allowItemSpan = isChecked) }

@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-//apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion globalCompileSdkVersion
@@ -33,21 +32,22 @@ android {
     }
 }
 
+repositories {
+    jcenter()
+}
+
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$globalKotlinVersion"
     implementation "androidx.appcompat:appcompat:$globalExtensionLibraryVersion"
     implementation "androidx.recyclerview:recyclerview:$globalExtensionLibraryVersion"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$globalKotlinVersion"
 
     testImplementation 'junit:junit:4.12'
     testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$globalKotlinVersion"
     testImplementation "org.robolectric:robolectric:$globalRobolectricVersion"
 
-    androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
+    androidTestImplementation "androidx.test:runner:$globalTestRunnerVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$globalEspressoVersion"
     androidTestImplementation "org.jetbrains.kotlin:kotlin-test-junit:$globalKotlinVersion"
-}
-
-repositories {
-    jcenter()
 }
