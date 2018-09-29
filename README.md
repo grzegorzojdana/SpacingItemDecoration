@@ -24,7 +24,7 @@ dependencies {
 }
 ```
 
-Since `1.1.0` version this library depends on `androidx` packages. If you have issues with manifest merger, you can stay with `1.0.1` version, which depends on `appcompat` packages.
+Since `1.1.0` version this library depends on `androidx` packages. If you have issues with manifest merger, you can stay with `1.0.1` version, which depends on old `com.android.support` packages.
 
 ## How to use
 
