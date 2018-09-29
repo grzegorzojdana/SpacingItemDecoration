@@ -20,7 +20,7 @@ allprojects {
 Add the dependency to your project's `build.gradle`:
 ```groovy
 dependencies {
-    implementation 'com.github.grzegorzojdana:SpacingItemDecoration:1.0.1'
+    implementation 'com.github.grzegorzojdana:SpacingItemDecoration:1.1.0'
 }
 ```
 
