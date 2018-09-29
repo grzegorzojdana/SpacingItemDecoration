@@ -4,11 +4,11 @@
 
 buildscript {
     ext {
-        globalSupportLibraryVersion = '26.1.0'
+        globalExtensionLibraryVersion = '1.0.0'
         globalMinSdkVersion      = 14
-        globalTargetSdkVersion   = 26
-        globalCompileSdkVersion  = 26
-        globalKotlinVersion      = '1.2.21'
+        globalTargetSdkVersion   = 28
+        globalCompileSdkVersion  = 28
+        globalKotlinVersion      = '1.2.71'
         globalRobolectricVersion = '3.6.1'
         globalLifecycleVersion   = '1.1.0'
     }
@@ -18,7 +18,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:3.2.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$globalKotlinVersion"
 
         // NOTE: Do not place your application dependencies here; they belong

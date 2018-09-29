@@ -33,12 +33,9 @@ proguard/
 captures/
 
 # Intellij
+.idea
 *.iml
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/gradle.xml
-.idea/dictionaries
-.idea/libraries
+*/*.iml
 
 # Signing data and keystore
 keystore.properties

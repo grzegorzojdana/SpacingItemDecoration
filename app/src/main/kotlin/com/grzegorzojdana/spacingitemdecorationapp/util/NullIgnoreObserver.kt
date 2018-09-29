@@ -1,6 +1,6 @@
 package com.grzegorzojdana.spacingitemdecorationapp.util
 
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 
 /**
  * [Observer] implementation that will ignore changes value to `null`.

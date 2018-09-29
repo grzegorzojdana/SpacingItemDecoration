@@ -1,6 +1,6 @@
 package com.grzegorzojdana.spacingitemdecorationapp.model
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import com.grzegorzojdana.spacingitemdecoration.Spacing
 
 /**

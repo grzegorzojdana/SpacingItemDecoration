@@ -2,7 +2,7 @@ package com.grzegorzojdana.spacingitemdecorationapp.action.main
 
 import android.graphics.Rect
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.grzegorzojdana.spacingitemdecoration.Spacing
 import com.grzegorzojdana.spacingitemdecorationapp.R
 import com.grzegorzojdana.spacingitemdecorationapp.extensions.dpToPxInt

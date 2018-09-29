@@ -10,8 +10,14 @@ android {
         targetSdkVersion globalTargetSdkVersion
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     buildTypes {
         release {
             minifyEnabled true
@@ -35,23 +41,23 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$globalKotlinVersion"
-    implementation "com.android.support:appcompat-v7:$globalSupportLibraryVersion"
-    implementation "com.android.support:recyclerview-v7:$globalSupportLibraryVersion"
-    implementation "com.android.support:design:$globalSupportLibraryVersion"
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
     implementation project(':spacingitemdecorationlib')
 
     // ViewModel and LiveData
-    implementation "android.arch.lifecycle:extensions:$globalLifecycleVersion"
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
 //    annotationProcessor "android.arch.lifecycle:compiler:1.0.0"
-    implementation "android.arch.lifecycle:common-java8:$globalLifecycleVersion"
+    implementation 'androidx.lifecycle:lifecycle-common-java8:2.0.0'
 
     testImplementation 'junit:junit:4.12'
     testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$globalKotlinVersion"
     testImplementation "org.robolectric:robolectric:$globalRobolectricVersion"
-    testImplementation "android.arch.lifecycle:extensions:$globalLifecycleVersion"
-    testImplementation "android.arch.lifecycle:common-java8:$globalLifecycleVersion"
+    testImplementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    testImplementation 'androidx.lifecycle:lifecycle-common-java8:2.0.0'
 
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
 }
