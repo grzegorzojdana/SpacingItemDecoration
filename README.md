@@ -24,6 +24,8 @@ dependencies {
 }
 ```
 
+Since `1.1.0` version this library depends on `androidx` packages. If you have issues with manifest merger, you can stay with `1.0.1` version, which depends on `appcompat` packages.
+
 ## How to use
 
 Decoration with specified _Spacing_ can be created and added to RecyclerView like this:
