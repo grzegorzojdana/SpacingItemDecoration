@@ -7,43 +7,59 @@ class ItemOffsetsCalculatorTest_singleItem : ItemOffsetsCalculatorTestBase() {
 
     @Test
     fun noSpacing() {
-        val calc = ItemOffsetsCalculator(Spacing())
-        val offsetsRequest = ItemOffsetsCalculator.OffsetsRequest(rows = 1, cols = 1)
-        test(calc, offsetsRequest, Rect())
+        onCalcWithSpacing(Spacing()) {
+            table(rows = 1, cols = 1) {
+                cell(0, 0) expects noOffsets()
+            }
+        }
     }
 
     @Test
     fun edges() {
-        val calc = ItemOffsetsCalculator(
-                Spacing(edges = Rect(8, 5, 6, 10)))
-        val offsetsRequest = ItemOffsetsCalculator.OffsetsRequest(rows = 1, cols = 1)
-        test(calc, offsetsRequest.apply { row = 0 }, Rect(8, 5, 6, 10))
+        val spacing = Spacing(
+                edges = Rect(8, 5, 6, 10))
+        onCalcWithSpacing(spacing) {
+            table(rows = 1, cols = 1) {
+                cell(0, 0) expects offsets(8, 5, 6, 10)
+            }
+        }
     }
 
     @Test
     fun item() {
-        val calc = ItemOffsetsCalculator(
-                Spacing(item = Rect(2, 2, 3, 4)))
-        val offsetsRequest = ItemOffsetsCalculator.OffsetsRequest(rows = 1, cols = 1)
-        test(calc, offsetsRequest.apply { row = 0 }, Rect(2, 2, 3, 4))
+        val spacing = Spacing(
+                item = Rect(2, 2, 3, 4))
+        onCalcWithSpacing(spacing) {
+            table(rows = 1, cols = 1) {
+                cell(0, 0) expects offsets(2, 2, 3, 4)
+            }
+        }
     }
 
     @Test
     fun horizontalAndVertical() {
-        val calc = ItemOffsetsCalculator(
-                Spacing(horizontal = 4, vertical = 6))
-        val offsetsRequest = ItemOffsetsCalculator.OffsetsRequest(rows = 1, cols = 1)
-        test(calc, offsetsRequest.apply { row = 0 }, Rect())
+        val spacing = Spacing(
+                horizontal = 4,
+                vertical = 6)
+        onCalcWithSpacing(spacing) {
+            table(rows = 1, cols = 1) {
+                cell(0, 0) expects noOffsets()
+            }
+        }
     }
 
     @Test
     fun allSpacingProperties() {
-        val calc = ItemOffsetsCalculator(
-                Spacing(edges = Rect(2, 3, 2, 4),
-                        item = Rect(0, 1, 1, 1),
-                        horizontal = 5, vertical = 5))
-        val offsetsRequest = ItemOffsetsCalculator.OffsetsRequest(rows = 1, cols = 1)
-        test(calc, offsetsRequest.apply { row = 0 }, Rect(2, 4, 3, 5))
+        val spacing = Spacing(
+                edges = Rect(2, 3, 2, 4),
+                item = Rect(0, 1, 1, 1),
+                horizontal = 5,
+                vertical = 5)
+        onCalcWithSpacing(spacing) {
+            table(rows = 1, cols = 1) {
+                cell(0, 0) expects offsets(2, 4, 3, 5)
+            }
+        }
     }
 
 }
