@@ -5,8 +5,12 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
 import android.view.View
-import androidx.recyclerview.widget.*
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.OrientationHelper
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 
 /**
  * [ItemDecoration] implementation that adds specified spacing to [RecyclerView]s items elements.
@@ -141,48 +145,50 @@ class SpacingItemDecoration(
 
     override fun onDraw(canvas: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         if (!isSpacingDrawingEnabled) return
+        drawItemDependentSpacing(canvas, parent)
+        drawEdges(canvas, parent, state)
+    }
 
-        val itemsCount = parent.childCount
-        if (itemsCount == 0) return
-
-        parent.getDrawingRect(drawing.visibleRect)
-
-        for (i in 0 until itemsCount) {
-            val itemView = parent.getChildAt(i)
-
-            with (drawing) {
+    private fun drawItemDependentSpacing(canvas: Canvas, parent: RecyclerView) {
+        with (drawing) {
+            parent.getChildrenSequence().forEach { itemView ->
+                // drawing horizontal and vertical spacing in one loop with item spacing for better performance
 
                 // item spacing
+                // drawing as one rect under the item
 
                 drawingRect.set(
-                        itemView.left - spacing.item.left,
-                        itemView.top - spacing.item.top,
-                        itemView.right + spacing.item.right,
-                        itemView.bottom + spacing.item.bottom)
+                    itemView.left - spacing.item.left,
+                    itemView.top - spacing.item.top,
+                    itemView.right + spacing.item.right,
+                    itemView.bottom + spacing.item.bottom)
                 drawRect(canvas, drawingConfig.itemColor)
 
-                // horizontal spacing
+                // horizontal spacing after item
                 // no checking if item is most right item, we will draw edges spacing anyway
 
                 drawingRect.left = itemView.right + spacing.item.right
                 drawingRect.right = drawingRect.left + spacing.horizontal
                 drawRect(canvas, drawingConfig.horizontalColor)
 
-                // vertical spacing
+                // vertical spacing after item
 
                 drawingRect.set(
-                        itemView.left - spacing.item.left,
-                        itemView.bottom + spacing.item.bottom,
-                        itemView.right + spacing.item.right,
-                        itemView.bottom + spacing.item.bottom + spacing.vertical)
+                    itemView.left - spacing.item.left,
+                    itemView.bottom + spacing.item.bottom,
+                    itemView.right + spacing.item.right,
+                    itemView.bottom + spacing.item.bottom + spacing.vertical)
                 drawRect(canvas, drawingConfig.verticalColor)
             }
         }
+    }
 
-        // edges
-
+    private fun drawEdges(canvas: Canvas, parent: RecyclerView, state: RecyclerView.State) {
+        if (parent.childCount == 0) return
         if (spacing.edges.isAllZeros()) return
         val extremeItems = parent.getExtremeChildren()
+        var internalEdge: Int
+        parent.getDrawingRect(drawing.visibleRect)
 
         with (drawing) {
             paint.color = drawingConfig.edgeColor
@@ -190,48 +196,32 @@ class SpacingItemDecoration(
             determineItemOffsetsParams(extremeItems[0], parent, state, itemOffsetsParams)
             itemOffsetsRequestBuilder.fillItemOffsetsRequest(itemOffsetsParams, offsetsRequest)
             if (offsetsRequest.col == 0) {
-                drawingRect.set(
-                        0,
-                        0,
-                        Math.min(extremeItems[0].left - spacing.item.left,
-                                 spacing.edges.left),
-                        visibleRect.bottom)
+                internalEdge = Math.min(extremeItems[0].left - spacing.item.left, spacing.edges.left)
+                drawingRect.set(0, 0, internalEdge, visibleRect.bottom)
                 drawRect(canvas)
             }
 
             determineItemOffsetsParams(extremeItems[1], parent, state, itemOffsetsParams)
             itemOffsetsRequestBuilder.fillItemOffsetsRequest(itemOffsetsParams, offsetsRequest)
             if (offsetsRequest.row == 0) {
-                drawingRect.set(
-                        0,
-                        0,
-                        visibleRect.right,
-                        Math.min(extremeItems[1].top - spacing.item.top,
-                                 spacing.edges.top))
+                internalEdge = Math.min(extremeItems[1].top - spacing.item.top, spacing.edges.top)
+                drawingRect.set(0, 0, visibleRect.right, internalEdge)
                 drawRect(canvas)
             }
 
             determineItemOffsetsParams(extremeItems[2], parent, state, itemOffsetsParams)
             itemOffsetsRequestBuilder.fillItemOffsetsRequest(itemOffsetsParams, offsetsRequest)
             if (offsetsRequest.lastCol == offsetsRequest.cols - 1) {
-                drawingRect.set(
-                        Math.max(extremeItems[2].right + spacing.item.right,
-                                 visibleRect.right - spacing.edges.right),
-                        0,
-                        visibleRect.right,
-                        visibleRect.bottom)
+                internalEdge = Math.max(extremeItems[2].right + spacing.item.right, visibleRect.right - spacing.edges.right)
+                drawingRect.set(internalEdge, 0, visibleRect.right, visibleRect.bottom)
                 drawRect(canvas)
             }
 
             determineItemOffsetsParams(extremeItems[3], parent, state, itemOffsetsParams)
             itemOffsetsRequestBuilder.fillItemOffsetsRequest(itemOffsetsParams, offsetsRequest)
             if (offsetsRequest.lastRow == offsetsRequest.rows - 1) {
-                drawingRect.set(
-                        0,
-                        Math.max(extremeItems[3].bottom + spacing.item.bottom,
-                                 visibleRect.bottom - spacing.edges.bottom),
-                        visibleRect.right,
-                        visibleRect.bottom)
+                internalEdge = Math.max(extremeItems[3].bottom + spacing.item.bottom, visibleRect.bottom - spacing.edges.bottom)
+                drawingRect.set(0, internalEdge, visibleRect.right, visibleRect.bottom)
                 drawRect(canvas)
             }
         }
@@ -332,4 +322,8 @@ private fun RecyclerView.getExtremeChildren(): Array<View> {
  */
 private fun Rect.isAllZeros(): Boolean {
     return (left == 0 && top == 0 && right == 0 && bottom == 0)
+}
+
+private fun RecyclerView.getChildrenSequence(): Sequence<View> {
+    return (0 until childCount).asSequence().map { getChildAt(it) }
 }
