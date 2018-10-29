@@ -18,7 +18,7 @@ open class ItemOffsetsRequestBuilder {
             var spanCount: Int  = 1,
             var groupCount: Int = 1,
             var isLayoutVertical: Boolean = true,
-            var isLayoutReverse: Boolean = false
+            var isLayoutReverse: Boolean  = false
     )
 
     /**
@@ -31,32 +31,26 @@ open class ItemOffsetsRequestBuilder {
                 if (!itemOffsetsParams.isLayoutReverse) itemOffsetsParams.groupIndex
                 else itemOffsetsParams.groupCount - itemOffsetsParams.groupIndex - 1
 
-        // cols and rows number
-        if (itemOffsetsParams.isLayoutVertical) {
-            offsetsRequest.cols = itemOffsetsParams.spanCount
-            offsetsRequest.rows = itemOffsetsParams.groupCount
-        } else {
-            offsetsRequest.cols = itemOffsetsParams.groupCount
-            offsetsRequest.rows = itemOffsetsParams.spanCount
-        }
+        with (offsetsRequest) {
+            if (itemOffsetsParams.isLayoutVertical) {
+                row       = groupIndexAdjustedToReverse
+                col       = itemOffsetsParams.spanIndex
 
-        // item row and column
-        if (itemOffsetsParams.isLayoutVertical) {
-            offsetsRequest.col = itemOffsetsParams.spanIndex
-            offsetsRequest.row = groupIndexAdjustedToReverse
-        } else {
-            offsetsRequest.col = groupIndexAdjustedToReverse
-            offsetsRequest.row = itemOffsetsParams.spanIndex
-        }
+                spanSizeH = itemOffsetsParams.spanSize
+                spanSizeV = 1
 
-        // span size
-        if (itemOffsetsParams.isLayoutVertical) {
-            offsetsRequest.spanSizeH = itemOffsetsParams.spanSize
-            offsetsRequest.spanSizeV = 1
-        } else {
-            offsetsRequest.spanSizeH = 1
-            offsetsRequest.spanSizeV = itemOffsetsParams.spanSize
+                rows      = itemOffsetsParams.groupCount
+                cols      = itemOffsetsParams.spanCount
+            } else {
+                row       = itemOffsetsParams.spanIndex
+                col       = groupIndexAdjustedToReverse
+
+                spanSizeH = 1
+                spanSizeV = itemOffsetsParams.spanSize
+
+                rows      = itemOffsetsParams.spanCount
+                cols      = itemOffsetsParams.groupCount
+            }
         }
     }
-
 }

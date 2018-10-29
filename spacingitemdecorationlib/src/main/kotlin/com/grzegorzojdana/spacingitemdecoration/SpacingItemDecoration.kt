@@ -91,22 +91,20 @@ class SpacingItemDecoration(
                                            itemOffsetsParams: ItemOffsetsRequestBuilder.ItemOffsetsParams) {
         val layoutManager = parent.layoutManager
         val itemPosition = parent.getChildAdapterPosition(view)
-        val itemCount = state.itemCount // parent.adapter.itemCount
+        val itemCount = state.itemCount
 
         when (layoutManager) {
             null -> throw IllegalArgumentException("RecyclerView without layout manager")
             is GridLayoutManager -> {
-                val spanSizeLookup = layoutManager.spanSizeLookup
                 val layoutParams = view.layoutParams as GridLayoutManager.LayoutParams
                 val clampedSpanCount = Math.max(layoutManager.spanCount, 1)
-                val determinedGroupCount = getGridGroupCount(itemCount, layoutManager)
 
                 itemOffsetsParams.apply {
                     spanIndex        = layoutParams.spanIndex
-                    groupIndex       = spanSizeLookup.getSpanGroupIndex(itemPosition, clampedSpanCount)
+                    groupIndex       = layoutManager.spanSizeLookup.getSpanGroupIndex(itemPosition, clampedSpanCount)
                     spanSize         = layoutParams.spanSize
                     spanCount        = clampedSpanCount
-                    groupCount       = determinedGroupCount
+                    groupCount       = getGridGroupCount(itemCount, layoutManager)
                     isLayoutVertical = (layoutManager.orientation == OrientationHelper.VERTICAL)
                     isLayoutReverse  = layoutManager.reverseLayout
                 }
@@ -186,12 +184,13 @@ class SpacingItemDecoration(
     private fun drawEdges(canvas: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         if (parent.childCount == 0) return
         if (spacing.edges.isAllZeros()) return
+
         val extremeItems = parent.getExtremeChildren()
         var internalEdge: Int
-        parent.getDrawingRect(drawing.visibleRect)
 
         with (drawing) {
             paint.color = drawingConfig.edgeColor
+            parent.getDrawingRect(visibleRect)
 
             determineItemOffsetsParams(extremeItems[0], parent, state, itemOffsetsParams)
             itemOffsetsRequestBuilder.fillItemOffsetsRequest(itemOffsetsParams, offsetsRequest)

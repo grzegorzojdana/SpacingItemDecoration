@@ -39,14 +39,13 @@ open class ItemOffsetsCalculator(
     private var rowsOfPrecalculatedValues = 0
     private var colsOfPrecalculatedValues = 0
 
-    /* Precalculated values, constant for given spacing, items count and layout manager params. */
+    /* Precalculated (cached) values. Need to be calculated again when spacing, item count or layout manager params change. */
 
     private var startMargin: Int = 0
-    private var itemDistanceH: Int = 0
-    private var itemDeltaH: Float = 0F
-    
     private var topMargin: Int = 0
+    private var itemDistanceH: Int = 0
     private var itemDistanceV: Int = 0
+    private var itemDeltaH: Float = 0F
     private var itemDeltaV: Float = 0F
 
 
@@ -60,20 +59,11 @@ open class ItemOffsetsCalculator(
             validatePrecalculatedValues(offsetsRequest)
         }
 
-        outRect.setEmpty()
-
-        outRect.left = Math.round(startMargin + offsetsRequest.col * itemDeltaH)
-        if (offsetsRequest.spanSizeH == 1) {
-            outRect.right = Math.round(itemDistanceH - outRect.left - itemDeltaH)
-        } else {
-            outRect.right = Math.round(itemDistanceH - startMargin - (offsetsRequest.col + offsetsRequest.spanSizeH) * itemDeltaH)
-        }
-
-        outRect.top = Math.round(topMargin + offsetsRequest.row * itemDeltaV)
-        if (offsetsRequest.spanSizeV == 1) {
-            outRect.bottom = Math.round(itemDistanceV - outRect.top - itemDeltaV)
-        } else {
-            outRect.bottom = Math.round(itemDistanceV - topMargin - (offsetsRequest.row + offsetsRequest.spanSizeV) * itemDeltaV)
+        outRect.apply {
+            left   = Math.round(startMargin + offsetsRequest.col * itemDeltaH)
+            top    = Math.round(topMargin + offsetsRequest.row * itemDeltaV)
+            right  = Math.round(itemDistanceH - left - offsetsRequest.spanSizeH * itemDeltaH)
+            bottom = Math.round(itemDistanceV - top - offsetsRequest.spanSizeV * itemDeltaV)
         }
     }
     
@@ -88,23 +78,19 @@ open class ItemOffsetsCalculator(
     }
 
     private fun validatePrecalculatedValues(offsetsRequest: OffsetsRequest) {
-        val offsetsSumH = spacing.edges.horizontalSum() + spacing.item.horizontalSum()
-        val offsetsSumV = spacing.edges.verticalSum() + spacing.item.verticalSum()
+        with (spacing) {
+            startMargin   = edges.left + item.left
+            itemDistanceH = horizontal + item.left + item.right
+            itemDeltaH    = (horizontal - edges.left - edges.right) / offsetsRequest.cols.toFloat()
 
-        startMargin = spacing.edges.left + spacing.item.left
-        itemDistanceH = spacing.horizontal + spacing.item.horizontalSum()
-        itemDeltaH = itemDistanceH - (itemDistanceH * (offsetsRequest.cols - 1) + offsetsSumH) / offsetsRequest.cols.toFloat()
+            topMargin     = edges.top + item.top
+            itemDistanceV = vertical + item.top + item.bottom
+            itemDeltaV    = (vertical - edges.top - edges.bottom) / offsetsRequest.rows.toFloat()
+        }
 
-        topMargin = spacing.edges.top + spacing.item.top
-        itemDistanceV = spacing.vertical + spacing.item.verticalSum()
-        itemDeltaV = itemDistanceV - (itemDistanceV * (offsetsRequest.rows - 1) + offsetsSumV) / offsetsRequest.rows.toFloat()
-        
         precalculatedValuesInvalid = false
 
         rowsOfPrecalculatedValues = offsetsRequest.rows
         colsOfPrecalculatedValues = offsetsRequest.cols
     }
 }
-
-private fun Rect.horizontalSum(): Int = left + right
-private fun Rect.verticalSum(): Int = top + bottom
