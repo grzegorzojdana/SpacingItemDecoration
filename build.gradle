@@ -7,7 +7,7 @@ buildscript {
         globalMinSdkVersion      = 14
         globalTargetSdkVersion   = 28
         globalCompileSdkVersion  = 28
-        globalKotlinVersion      = '1.2.71'
+        globalKotlinVersion      = '1.3.0'
         globalExtensionLibraryVersion = '1.0.0'
         globalRobolectricVersion = '4.0-alpha-4-SNAPSHOT' // using snapshot version until 4.0 will came up to support android api 28
         globalLifecycleVersion   = '2.0.0'
