@@ -34,12 +34,14 @@ open class ItemOffsetsCalculator(
     open var spacing: Spacing = spacing
         set(value) { field = value; invalidatePrecalculatedValues() }
     
-    private var precalculatedValuesInvalid = true
-    // data used to determine precalculated values; stored to compare inside getItemOffsets() and determine are precalculated values valid or not
-    private var rowsOfPrecalculatedValues = 0
-    private var colsOfPrecalculatedValues = 0
+    private var areCachedValuesInvalid = true
+    // Data used to determine precalculated values; stored to compare inside getItemOffsets()
+    // and determine if cached values are valid or not.
+    private var cachedRows = 0
+    private var cachedCols = 0
 
-    /* Precalculated (cached) values. Need to be calculated again when spacing, item count or layout manager params change. */
+    // Precalculated (cached) values. Need to be calculated again when spacing, item count or
+    // layout manager params change.
 
     private var startMargin: Int = 0
     private var topMargin: Int = 0
@@ -55,7 +57,7 @@ open class ItemOffsetsCalculator(
      */
     open fun getItemOffsets(outRect: Rect, offsetsRequest: OffsetsRequest) {
         updatePrecalculatedValuesValidityFor(offsetsRequest)
-        if (precalculatedValuesInvalid) {
+        if (areCachedValuesInvalid) {
             validatePrecalculatedValues(offsetsRequest)
         }
 
@@ -68,12 +70,12 @@ open class ItemOffsetsCalculator(
     }
     
     open fun invalidatePrecalculatedValues() {
-        precalculatedValuesInvalid = true
+        areCachedValuesInvalid = true
     }
 
     private fun updatePrecalculatedValuesValidityFor(offsetsRequest: OffsetsRequest) {
-        if (offsetsRequest.rows != rowsOfPrecalculatedValues || offsetsRequest.cols != colsOfPrecalculatedValues) {
-            precalculatedValuesInvalid = true
+        if (offsetsRequest.rows != cachedRows || offsetsRequest.cols != cachedCols) {
+            areCachedValuesInvalid = true
         }
     }
 
@@ -88,9 +90,9 @@ open class ItemOffsetsCalculator(
             itemDeltaV    = (vertical - edges.top - edges.bottom) / offsetsRequest.rows.toFloat()
         }
 
-        precalculatedValuesInvalid = false
+        areCachedValuesInvalid = false
 
-        rowsOfPrecalculatedValues = offsetsRequest.rows
-        colsOfPrecalculatedValues = offsetsRequest.cols
+        cachedRows = offsetsRequest.rows
+        cachedCols = offsetsRequest.cols
     }
 }

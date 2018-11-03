@@ -31,5 +31,4 @@ abstract class ItemOffsetsRequestBuilderTestBase(
             assertEquals(expected, result)
         }
     }
-
 }

@@ -81,7 +81,7 @@ list.invalidateItemDecorations()
 
 From the fact how this library works (providing item offsets with desired layout spacing without changing number of list rows and columns), list items will in result be laid out smaller than without this decoration, because some spacing is brought uniformly from each item's width and height. 
 
-This library works best if RecyclerView items have set one of the dimension to `MATCH_PARENT` (width if orientation is `VERTICAL`, and height if orientations is `HORIZONTAL`). Otherwise, you can see that when using GridLayoutManager the `item.bottom` or `item.right` spacing could not work.
+This library works best if RecyclerView items have set one of the dimension to `MATCH_PARENT` (width if orientation is `VERTICAL`, and height if orientation is `HORIZONTAL`). Otherwise, you can see that when using GridLayoutManager the `item.bottom` or `item.right` spacing could not work.
 
 `StaggeredLayoutManager` is not currently fully supported. For `VERTICAL` orientation, `vertical` spacing won't work, and `edges.top` and `edges.bottom` spacings will behave like `item.top` and `item.bottom` spacings. Similar, for `HORIZONTAL` orientation, `horizontal` spacing, `edges.left` and `edges.right` are broken. However, it is planned to be fixed in some future release.
 

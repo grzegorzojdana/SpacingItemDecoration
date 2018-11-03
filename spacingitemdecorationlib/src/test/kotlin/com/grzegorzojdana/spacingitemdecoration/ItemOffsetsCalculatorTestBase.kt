@@ -59,5 +59,4 @@ abstract class ItemOffsetsCalculatorTestBase {
     }
 
     protected fun noOffsets(): Rect = Rect()
-
 }

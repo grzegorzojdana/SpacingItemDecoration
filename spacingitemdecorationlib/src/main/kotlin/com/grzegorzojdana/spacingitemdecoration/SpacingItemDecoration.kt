@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.OrientationHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.grzegorzojdana.spacingitemdecoration.ItemOffsetsRequestBuilder.ItemOffsetsParams
 
 /**
  * [ItemDecoration] implementation that adds specified spacing to [RecyclerView]s items elements.
@@ -27,7 +28,7 @@ class SpacingItemDecoration(
     var itemOffsetsCalculator = ItemOffsetsCalculator(spacing)
     var itemOffsetsRequestBuilder = ItemOffsetsRequestBuilder()
 
-    private val itemOffsetsParams = ItemOffsetsRequestBuilder.ItemOffsetsParams()
+    private val itemOffsetsParams = ItemOffsetsParams()
     private val offsetsRequest = ItemOffsetsCalculator.OffsetsRequest()
 
     private var cachedGroupCount: Int = -1
@@ -88,7 +89,7 @@ class SpacingItemDecoration(
     private fun determineItemOffsetsParams(view: View,
                                            parent: RecyclerView,
                                            state: RecyclerView.State,
-                                           itemOffsetsParams: ItemOffsetsRequestBuilder.ItemOffsetsParams) {
+                                           itemOffsetsParams: ItemOffsetsParams) {
         val layoutManager = parent.layoutManager
         val itemPosition = parent.getChildAdapterPosition(view)
         val itemCount = state.itemCount
@@ -98,10 +99,12 @@ class SpacingItemDecoration(
             is GridLayoutManager -> {
                 val layoutParams = view.layoutParams as GridLayoutManager.LayoutParams
                 val clampedSpanCount = Math.max(layoutManager.spanCount, 1)
+                val spanGroupIndex = layoutManager.spanSizeLookup.getSpanGroupIndex(
+                        itemPosition, clampedSpanCount)
 
                 itemOffsetsParams.apply {
                     spanIndex        = layoutParams.spanIndex
-                    groupIndex       = layoutManager.spanSizeLookup.getSpanGroupIndex(itemPosition, clampedSpanCount)
+                    groupIndex       = spanGroupIndex
                     spanSize         = layoutParams.spanSize
                     spanCount        = clampedSpanCount
                     groupCount       = getGridGroupCount(itemCount, layoutManager)
@@ -110,15 +113,15 @@ class SpacingItemDecoration(
                 }
             }
             is StaggeredGridLayoutManager -> {
-                val itemLayoutParams = view.layoutParams as StaggeredGridLayoutManager.LayoutParams
+                val layoutParams = view.layoutParams as StaggeredGridLayoutManager.LayoutParams
 
                 // could write some logic to determine and cache group index for each item
                 // could access to Span object in item layout params through reflection
 
                 itemOffsetsParams.apply {
-                    spanIndex        = itemLayoutParams.spanIndex
+                    spanIndex        = layoutParams.spanIndex
                     groupIndex       = 0
-                    spanSize         = if (itemLayoutParams.isFullSpan) layoutManager.spanCount else 1
+                    spanSize         = if (layoutParams.isFullSpan) layoutManager.spanCount else 1
                     spanCount        = layoutManager.spanCount
                     groupCount       = 1
                     isLayoutVertical = (layoutManager.orientation == OrientationHelper.VERTICAL)
@@ -150,7 +153,8 @@ class SpacingItemDecoration(
     private fun drawItemDependentSpacing(canvas: Canvas, parent: RecyclerView) {
         with (drawing) {
             parent.getChildrenSequence().forEach { itemView ->
-                // drawing horizontal and vertical spacing in one loop with item spacing for better performance
+                // drawing horizontal and vertical spacing in one loop with item spacing
+                // for better performance
 
                 // item spacing
                 // drawing as one rect under the item
@@ -195,7 +199,8 @@ class SpacingItemDecoration(
             determineItemOffsetsParams(extremeItems[0], parent, state, itemOffsetsParams)
             itemOffsetsRequestBuilder.fillItemOffsetsRequest(itemOffsetsParams, offsetsRequest)
             if (offsetsRequest.col == 0) {
-                internalEdge = Math.min(extremeItems[0].left - spacing.item.left, spacing.edges.left)
+                internalEdge = Math.min(extremeItems[0].left - spacing.item.left,
+                                        spacing.edges.left)
                 drawingRect.set(0, 0, internalEdge, visibleRect.bottom)
                 drawRect(canvas)
             }
@@ -203,7 +208,8 @@ class SpacingItemDecoration(
             determineItemOffsetsParams(extremeItems[1], parent, state, itemOffsetsParams)
             itemOffsetsRequestBuilder.fillItemOffsetsRequest(itemOffsetsParams, offsetsRequest)
             if (offsetsRequest.row == 0) {
-                internalEdge = Math.min(extremeItems[1].top - spacing.item.top, spacing.edges.top)
+                internalEdge = Math.min(extremeItems[1].top - spacing.item.top,
+                                        spacing.edges.top)
                 drawingRect.set(0, 0, visibleRect.right, internalEdge)
                 drawRect(canvas)
             }
@@ -211,7 +217,8 @@ class SpacingItemDecoration(
             determineItemOffsetsParams(extremeItems[2], parent, state, itemOffsetsParams)
             itemOffsetsRequestBuilder.fillItemOffsetsRequest(itemOffsetsParams, offsetsRequest)
             if (offsetsRequest.lastCol == offsetsRequest.cols - 1) {
-                internalEdge = Math.max(extremeItems[2].right + spacing.item.right, visibleRect.right - spacing.edges.right)
+                internalEdge = Math.max(extremeItems[2].right + spacing.item.right,
+                                        visibleRect.right - spacing.edges.right)
                 drawingRect.set(internalEdge, 0, visibleRect.right, visibleRect.bottom)
                 drawRect(canvas)
             }
@@ -219,7 +226,8 @@ class SpacingItemDecoration(
             determineItemOffsetsParams(extremeItems[3], parent, state, itemOffsetsParams)
             itemOffsetsRequestBuilder.fillItemOffsetsRequest(itemOffsetsParams, offsetsRequest)
             if (offsetsRequest.lastRow == offsetsRequest.rows - 1) {
-                internalEdge = Math.max(extremeItems[3].bottom + spacing.item.bottom, visibleRect.bottom - spacing.edges.bottom)
+                internalEdge = Math.max(extremeItems[3].bottom + spacing.item.bottom,
+                                        visibleRect.bottom - spacing.edges.bottom)
                 drawingRect.set(0, internalEdge, visibleRect.right, visibleRect.bottom)
                 drawRect(canvas)
             }
